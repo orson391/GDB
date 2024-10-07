@@ -6,16 +6,13 @@ char final[100] = "/Data";
 void create(char *table, char *path) {
     FILE *fptr;
     char fold[100];
-
-    // Format the file path into fold
     sprintf(fold, "Data\\%s\\%s.txt", path, table);
-
-    // Open the file
     fptr = fopen(fold, "a+");
     if (fptr == NULL) {
         printf("Error opening file.\n");
         return;
     }
+
     char myString[100];
 
     
