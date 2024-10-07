@@ -3,22 +3,22 @@
 #include <direct.h>
 
 char final[100] = "/Data";
-void create()
-{
-      //printf("HelloWorld\n");
+void create(char *table, char *path) {
     FILE *fptr;
+    char fold[100];
 
-// Create a file
-    //fptr = fopen("Data\\d1.txt", "a");
-    //fprintf(fptr,"\n");
-// read a file
-    fptr = fopen("Data\\d1.txt", "a+");
+    // Format the file path into fold
+    sprintf(fold, "Data\\%s\\%s.txt", path, table);
+
+    // Open the file
+    fptr = fopen(fold, "a+");
+    if (fptr == NULL) {
+        printf("Error opening file.\n");
+        return;
+    }
     char myString[100];
 
-    //fprintw(fptr, 123);
-    //fgetw(printf("%d"),);
-    // Read the content and store it inside myString
-    //fgets(myString, 100, fptr);
+    
     while(fgets(myString, 100, fptr)) {
         printf("%s", myString);
     }
@@ -69,7 +69,7 @@ int ls(char* db) {
   }
   else
   {
-    printf("No Tables\n");
+    printf("\n*No Tables*\n");
     return 1;
   }
   
@@ -113,12 +113,22 @@ void main()
       scanf("%s",&db);
       printf("DataBase Has been Choosed\n");
       ul();
-      printf("*Current Tables*\n");
+      printf("*Current_Tables*\n");
       if(ls(db))
       {
-        printf("Enter  Table Name:");
+        char tableName[100];  
+        printf("Enter Table Name: ");
+        scanf("%s", tableName);
+        char *slash = strchr(db, '/');
+          if (slash != NULL) {
+            memmove(slash, slash + 1, strlen(slash));
+          }
+
+        create(tableName, db);
       }
-      ul();
+      else{
+      	ul();
+	  }
     }
   
 }
